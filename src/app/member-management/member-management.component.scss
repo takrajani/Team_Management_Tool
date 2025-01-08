@@ -1,0 +1,269 @@
+// .container {
+//   width: 100%;
+//   background-color: white;
+//   border: 1px solid #ccc;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   overflow: hidden;
+// }
+
+// .top-section {
+//   display: flex;
+//   border-bottom: 1px solid #ccc;
+// }
+
+// .column {
+//   flex: 1;
+//   padding: 20px;
+//   // text-align: center;
+// }
+
+// .left-column {
+//   background-color: #e3f2fd;
+// }
+
+// .right-column {
+//   background-color: #fce4ec;
+// }
+
+//  .bottom-section {
+//   padding: 20px;
+//   text-align: center;
+//   background-color: #e8f5e9;
+
+// .container.team {
+//   width: 15%;
+//   float: left;
+// }
+
+// .container.select-team {
+//   width: 50%;
+//   float: right;
+// }
+
+// .container.container.select-team .mat-mdc-card-content {
+//   width: 100%;
+// }
+
+// .container > h2 {
+//   text-align: center;
+//   color: rgb(1, 1, 12);
+// }
+
+// .team-table {
+//   margin-bottom: 20px;
+// }
+
+// .team-table h3 {
+//   text-align: center;
+//   margin: 0;
+//   background-color: #f1f1f1;
+//   padding: 5px;
+// }
+
+// .table,
+// th,
+// td {
+//   border: 1px solid #ddd;
+//   padding: 10px 10px;
+// }
+
+// th {
+//   background-color: #f1f1f1;
+// }
+
+// .table {
+//   width: 100%;
+//   border-collapse: collapse;
+//   text-align: center;
+// }
+
+// @media (max-width: 500px) {
+//   .table thead {
+//     display: none !important;
+//   }
+
+//   .table tbody,
+//   tr,
+//   td {
+//     display: block;
+//     width: 100%;
+//     float: right;
+//   }
+
+//   .table tr {
+//     margin-bottom: 15px;
+//   }
+
+//   .table td {
+//     text-align: right;
+//     padding-left: 40%;
+//   }
+
+//   .table tr:nth-child(even) {
+//     text-align: center;
+//   }
+
+//   .table td::before {
+//     content: attr(data-name);
+//     position: absolute;
+//     left: 0;
+//     width: 50%;
+//     text-align: left;
+//     padding-left: 15px;
+//     font-size: 0.9rem;
+//     font-weight: 600;
+//   }
+// }
+
+// tfoot td {
+//   font-weight: bold;
+//   padding: 8px;
+//   text-align: left;
+//   background: #e0ffe0;
+// }
+
+// tfoot td {
+//   font-weight: bold;
+//   padding: 8px;
+//   text-align: left;
+//   background: #f3ffe0;
+// }
+
+// .total-summary {
+//   margin-top: 20px;
+//   font-size: 1.2rem;
+//   font-weight: bold;
+// }
+
+// .btn {
+//   width: 80px;
+//   font-size: 12px;
+// }
+
+// .team-table h3 .btn {
+//   margin-right: 10px;
+// }
+
+.container > h2 {
+  text-align: center;
+  color: rgb(1, 1, 12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2x2 grid layout */
+  grid-gap: 20px;
+}
+
+.team-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 10px;
+  max-height: 400px; /* Fixed max height */
+  overflow-y: auto; /* Add vertical scrolling if content exceeds max height */
+}
+
+.team-table h3 {
+  text-align: center;
+  margin: 0;
+  background-color: #f1f1f1;
+  padding: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table,
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+}
+
+th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+tfoot td {
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
+  background: #e0ffe0;
+}
+
+.total-summary {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Stack grid items on small screens */
+  }
+
+  .team-table {
+    max-height: 300px; /* Adjust max height for smaller screens */
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .table thead {
+    display: none !important; /* Hide table headers on small screens */
+  }
+
+  .table tbody,
+  tr,
+  td {
+    display: block;
+    width: 100%;
+    float: right;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+  }
+
+  .table td {
+    text-align: right;
+    padding-left: 40%;
+  }
+
+  .table td::before {
+    content: attr(data-name); /* Add descriptive labels for each cell */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    text-align: left;
+    padding-left: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
