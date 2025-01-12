@@ -1,6 +1,8 @@
 <div class="container">
   <div class="container">
     <h2>Team Management Tool</h2>
+    @if(roleName==="Admin")
+    {
     <div class="total-summary">
       Add Team
       <button>
@@ -8,18 +10,24 @@
           (click)="addTeamDialog()"></mat-icon>
       </button>
     </div>
+
+    }
+
     <div class="grid">
       <!-- Loop through teams dynamically -->
       <div *ngFor="let team of teams" class="team-table">
         <h3>
           {{ team.name }}
+          @if(roleName==="Admin"){
           <mat-icon matTooltip="edit team name" aria-hidden="false" aria-label="Example edit icon" fontIcon="edit"
             (click)="editTeamDialog(team)"></mat-icon>
           <mat-icon matTooltip="delete team" aria-hidden="false" aria-label="Example delete icon" fontIcon="delete"
             (click)="deleteTeamDialog(team.id)"></mat-icon>
           <mat-icon matTooltip="add member" aria-hidden="false" aria-label="Example add icon" fontIcon="add"
             (click)="openAddMemberDialog(team.id)"></mat-icon>
+          }
         </h3>
+        <div class="table-container">
         <table class="table">
           <thead>
             <tr>
@@ -27,24 +35,27 @@
               <th>Exp</th>
               <th>Email</th>
               <th>User</th>
+              @if(roleName==="Admin"){
               <th>Action</th>
+              }
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let member of team.members">
-              <td>{{ member.name }}</td>
+              <td>{{ member.fullName }}</td>
               <td>{{ member.experience }}</td>
               <td>{{ member.email }}</td>
               <td>{{ member.username }}</td>
+              @if(roleName==="Admin"){
               <td>
                 <mat-icon matTooltip="update team member" aria-hidden="false" aria-label="Example edit icon"
-                  fontIcon="edit" (click)="updateTeamMember(team.id, member)"></mat-icon>
+                  fontIcon="edit" (click)="updateTeamMember(team.id,member)"></mat-icon>
                 <mat-icon matTooltip="move team member to other team" aria-hidden="false"
                   aria-label="Example sync_alt icon" fontIcon="sync_alt"
                   (click)="moveMemberToOtherTeam(team.id, member.id)"></mat-icon>
                 <mat-icon matTooltip="delete team member" aria-hidden="false" aria-label="Example delete icon"
-                  fontIcon="delete" (click)="deleteTeamMember(team.id, member.id)"></mat-icon>
-              </td>
+                  fontIcon="delete" (click)="deleteTeamMember(member.id)"></mat-icon>
+              </td>}
             </tr>
           </tbody>
           <tfoot>
@@ -53,6 +64,7 @@
             </tr>
           </tfoot>
         </table>
+      </div>
       </div>
     </div>
     <div class="total-summary">Total (Unit): {{ totalUnits }}</div>

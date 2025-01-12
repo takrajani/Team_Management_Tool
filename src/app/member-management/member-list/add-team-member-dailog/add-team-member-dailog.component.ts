@@ -49,8 +49,8 @@ export class AddTeamMemberDailogComponent implements OnInit {
 
     // Initialize the form group with dynamic values
     this.memberForm = this.fb.group({
-      id: [this.data.teamMember?.id || Math.floor(Math.random() * 1000)],
-      name: [this.data.teamMember?.name || '', Validators.required],
+      id: [this.data.teamMember?.id || 0],
+      fullName: [this.data.teamMember?.fullName || '', Validators.required],
       experience: [this.data.teamMember?.experience || '', Validators.required],
       email: [
         this.data.teamMember?.email || '',

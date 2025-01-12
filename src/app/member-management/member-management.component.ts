@@ -23,6 +23,7 @@ import { IMember } from '../models/member.model';
 import { DeleteTeamMemberDailogComponent } from './shared/component/select-team/dialog/delete-team-member-dailog/delete-team-member-dailog.component';
 import { MoveTeamMemberDailogComponent } from './member-list/move-team-member-dailog/move-team-member-dailog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-member-management',
   standalone: true,
@@ -42,23 +43,34 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './member-management.component.scss',
 })
 export class MemberManagementComponent {
-  profile:string='';
-  get totalUnits(): number {
-    return this.teams.reduce((sum, team) => sum + team.totalMembers, 0);
-  }
+  roleName:string='';
+  // admin@example.com, user1@example.com
+  // get totalUnits(): number {
+  //   return this.teams.reduce((sum, team) => sum + team.totalMembers, 0);
+  // }
+  public totalUnits: number=0;
+
   public teams: ITeam[] = [];
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog,
-    private notifier: NotificationService
+    private notifier: NotificationService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.roleName = params['roleName']; // Retrieve the email query parameter
+    });
     this.getTeams();
   }
   getTeams() {
     this.teamService.getTeams().subscribe((response) => {
       this.teams = response;
+      this.teams.forEach((team)=>{
+        this.totalUnits += team.members.length;
+        team.totalMembers=team.members.length
+      })
     });
   }
   addTeamDialog() {
@@ -92,7 +104,7 @@ export class MemberManagementComponent {
           this.getTeams();
           console.log('addMember', response);
           this.notifier.success(
-            `member added to team ${result.name} successful!`
+            `member added to team ${result.fullName} successful!`
           );
         }
       });
@@ -131,6 +143,12 @@ export class MemberManagementComponent {
   }
 
   moveMemberToOtherTeam(teamId: number, memberId: number) {
+    const selectedMember: IMember | undefined = this.teams
+      .flatMap((t) => t.members)
+      .find((m) => m.id === memberId);
+    if (!selectedMember) {
+      return;
+    }
     const dialogRef = this.dialog.open(MoveTeamMemberDailogComponent, {
       width: '450px',
       data: { selectedTeamId: teamId },
@@ -141,7 +159,7 @@ export class MemberManagementComponent {
         return;
       }
       this.teamService
-        .moveMemberToTeam(teamId, result, memberId)
+        .moveMemberToTeam(result,selectedMember)
         .subscribe((response) => {
           if (response) {
             this.getTeams();
@@ -152,11 +170,11 @@ export class MemberManagementComponent {
     });
   }
 
-  deleteTeamMember(teamId: number, memberId: number) {
+  deleteTeamMember(memberId: number) {
     const dialogRef = this.dialog.open(DeleteTeamMemberDailogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirm') {
-        this.teamService.deleteMember(teamId, memberId).subscribe(() => {
+        this.teamService.deleteMember(memberId).subscribe(() => {
           this.getTeams();
           this.notifier.success(`member deleted successful!`);
         });
@@ -171,13 +189,9 @@ export class MemberManagementComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: ITeam) => {
-      this.teamService.updateTeam(result).subscribe((response) => {
-        if (response) {
+       this.teamService.updateTeam(result).subscribe(() => {
           this.getTeams();
           this.notifier.success('Team update successful!');
-        }
-
-        console.log('The dialog was closed', response);
       });
     });
   }

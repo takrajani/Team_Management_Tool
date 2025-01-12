@@ -4,5 +4,5 @@ export interface ITeam {
   id: number;
   name: string;
   members: IMember[];
-  totalMembers: number;
+  totalMembers?: number;
 }

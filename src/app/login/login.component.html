@@ -6,24 +6,22 @@
     <mat-card-content>
       <form (submit)="onSubmit()">
         <mat-form-field class="full-width">
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            [(ngModel)]="credentials.username"
-            name="username"
-            required
-          />
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="credentials.email" name="email" required />
+          <mat-error *ngIf="credentials.email===''">
+            Email is required.
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
           <mat-label>Password</mat-label>
-          <input
-            matInput
-            [(ngModel)]="credentials.password"
-            name="password"
-            type="password"
-            required
-          />
+          <input matInput [(ngModel)]="credentials.password" name="password" type="password" required />
+          <mat-error *ngIf="credentials.password===''">
+            Password is required.
+          </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="errorMessage!==''">
+          {{errorMessage}}
+        </mat-error>
         <button mat-raised-button color="primary" type="submit">Login</button>
       </form>
     </mat-card-content>

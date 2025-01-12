@@ -10,11 +10,11 @@
             <mat-label>Name</mat-label>
             <input
               matInput
-              formControlName="name"
+              formControlName="fullName"
               placeholder="Enter Name"
             />
             <mat-error
-              *ngIf="memberForm.get('name')?.hasError('required')"
+              *ngIf="memberForm.get('fullName')?.hasError('required')"
             >
               Name is required.
             </mat-error>

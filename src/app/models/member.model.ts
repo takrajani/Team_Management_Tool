@@ -1,7 +1,8 @@
 export interface IMember {
   id: number;
-  name: string;
+  fullName: string;
   email: string;
   username: string;
   experience: number;
+  teamId: number
 }
